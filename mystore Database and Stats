@@ -1,0 +1,31 @@
+--Create a store database
+CREATE TABLE mystore (id INTEGER PRIMARY KEY, item TEXT, aisle INTEGER, brand TEXT, price INTEGER);
+
+--Populate mystore table
+INSERT INTO mystore VALUES (1, "shirt", 2, "Old Navy", 10);
+INSERT INTO mystore VALUES (2, "shirt", 2, "GAP", 12);
+INSERT INTO mystore VALUES (3, "shirt", 2, "NY & Co", 17);
+INSERT INTO mystore VALUES (4, "pants", 3, "NY & Co", 15);
+INSERT INTO mystore VALUES (5, "pants", 3, "GAP", 14);
+INSERT INTO mystore VALUES (6, "pants", 3, "GAP", 18);
+INSERT INTO mystore VALUES (7, "shorts", 7, "GAP", 12);
+INSERT INTO mystore VALUES (8, "shorts", 7, "Target", 18);
+INSERT INTO mystore VALUES (9, "shorts", 7, "Old Navy", 16);
+INSERT INTO mystore VALUES (10, "sandals", 7, "DSW", 21);
+INSERT INTO mystore VALUES (11, "sandals", 7, "Ross", 19);
+INSERT INTO mystore VALUES (12, "sandals", 7, "TJ Maxx", 25);
+INSERT INTO mystore VALUES (13, "sweater", 4, "Nordstrom Rack", 25);
+INSERT INTO mystore VALUES (14, "sweater", 4, "GAP", 18);
+INSERT INTO mystore VALUES (15, "sweater", 4, "Target", 21);
+
+--Display the database ordered by price in ascending order
+SELECT * FROM mystore ORDER BY price asc;
+
+--What the price of the most expensive item?
+SELECT MAX(price) FROM mystore
+
+--Find the average price of all sweaters
+SELECT AVG(price) FROM mystore WHERE item="sweater";
+
+--Display the database with only items over $15
+SELECT * FROM mystore WHERE price > 15;
