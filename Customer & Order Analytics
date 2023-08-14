@@ -56,4 +56,44 @@ AND orderid <> 'Order ID'
 --List all the products sold in Los Angeles in February, and include how many of each were sold.
 SELECT product, location, sum(quantity) FROM BreakIntoTech_DB.FebSales
 WHERE location like '%Los Angeles%'
+GROUP BY product;
+
+--Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
+SELECT distinct location, count(orderID) AS ordercount FROM BreakIntoTech_DB.JanSales
+WHERE location like '%NY%'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+GROUP BY location
+HAVING ordercount >2;
+
+--How many of each type of headphone were sold in February?
+SELECT product, sum(Quantity) AS totalquantity FROM BreakIntoTech_DB.FebSales
+WHERE product like '%headphones%'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+GROUP BY product;
+
+--What was the average amount spent per account in February?
+SELECT sum(quantity*price)/count(customers.acctnum) FROM BreakIntoTech_DB.FebSales
+LEFT JOIN BreakIntoTech_DB.customers
+ON FebSales.orderID = customers.order_id
+WHERE acctnum IS NOT NULL
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+--What was the average quantity of products purchased per account in February?
+SELECT sum(quantity)/count(customers.acctnum) FROM BreakIntoTech_DB.FebSales
+LEFT Join BreakIntoTech_DB.customers
+ON FebSales.orderID = customers.order_id
+WHERE acctnum IS NOT NULL
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+--Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT product, sum(quantity*price) AS revenue FROM BreakIntoTech_DB.FebSales
+GROUP BY product
+ORDER BY revenue DESC
+LIMIT 1
+SELECT product, location, sum(quantity) FROM BreakIntoTech_DB.FebSales
+WHERE location like '%Los Angeles%'
 GROUP BY product
